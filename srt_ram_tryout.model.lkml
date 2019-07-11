@@ -27,4 +27,10 @@ explore: sachin_details {
   }
 }
 
-explore: stadium_info {}
+explore: stadium_info {
+  join: match_info {
+    type:  inner
+    relationship: many_to_one
+    sql_on: ${stadium_info.stadium_id} = ${match_info.stadium_id}  ;;
+  }
+}
