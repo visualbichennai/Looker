@@ -1,5 +1,11 @@
+include: "sachin_details.view"
 view: match_info {
   sql_table_name: SRT.MATCH_INFO ;;
+  extends: [sachin_details]
+
+  measure: overallstrikerate_ten {
+    sql: ${overallruns}*10/${overallballs} ;;
+  }
 
   dimension: against {
     type: string

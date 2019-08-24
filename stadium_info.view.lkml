@@ -10,11 +10,13 @@ view: stadium_info {
   dimension: stadium_id {
     type: number
     sql: ${TABLE}.STADIUM_ID ;;
+
   }
 
   dimension: stadium_name {
     type: string
     sql: ${TABLE}.STADIUM_NAME ;;
+    drill_fields: [stadium_place]
   }
 
   dimension: stadium_place {
@@ -28,12 +30,16 @@ view: stadium_info {
     hidden: yes
 }
 
+   measure: count_total {
+     type: count_distinct
+    sql:  ${TABLE}.homaway  ;;
+   }
   dimension: venue {
     sql: (CASE WHEN ${homaway} THEN 'Home' else 'Away' end)  ;;
   }
 
   measure: count {
     type: count
-    drill_fields: [stadium_name]
+    drill_fields: [stadium_name, stadium_place, count_total ]
   }
 }
